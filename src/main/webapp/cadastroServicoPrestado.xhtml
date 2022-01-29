@@ -1,0 +1,90 @@
+<ui:composition template="templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <f:metadata>
+            <f:viewAction action="#{cadastroServicoPrestadoBean.init()}"/>
+        </f:metadata>
+
+        <p:growl id="messages" life="3000"/>
+
+        <h:form id="formCadastroServicoPrestado" style="margin-top: 20px;">
+
+            <p:fieldset legend="#{m.servicoPrestado}" style="margin-right: 75%; margin-top: 20px;">
+                <h:panelGrid columns="2" cellpadding="10">
+
+                    <p:selectCheckboxMenu id="servico"
+                                          value="#{cadastroServicoPrestadoBean.servicoPrestado.servicos}"
+                                          label="#{m.servico}"
+                                          filter="true"
+                                          filterMatchMode="startsWith"
+                                          converter="entityConverter"
+                                          panelStyle="width:350px">
+                        <f:selectItems value="#{cadastroServicoPrestadoBean.servicos}"
+                                        var="servico"
+                                        itemLabel="#{servico.servico.descricao += ' - ' += servico.valor += ' R$'}"
+                                        itemValue="#{servico}"/>
+                    </p:selectCheckboxMenu>
+
+                    <p:selectCheckboxMenu id="produto"
+                                          value="#{cadastroServicoPrestadoBean.servicoPrestado.produtos}"
+                                          label="#{m.produto}"
+                                          filter="true"
+                                          filterMatchMode="startsWith"
+                                          converter="entityConverter"
+                                          panelStyle="width:350px">
+                        <f:selectItems value="#{cadastroServicoPrestadoBean.produtos}"
+                                       var="produto"
+                                       itemLabel="#{produto.nome}"
+                                       itemValue="#{produto}"/>
+                    </p:selectCheckboxMenu>
+
+                </h:panelGrid >
+
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{m.cliente += ': '}"/>
+                    <p:selectOneMenu id="cliente"
+                                     value="#{cadastroServicoPrestadoBean.servicoPrestado.cliente}"
+                                     converter="entityConverter"
+                                     style="width:210px">
+                        <f:selectItems value="#{cadastroServicoPrestadoBean.clientes}"
+                                       var="cliente"
+                                       itemLabel="#{cliente.nome}"
+                                       itemValue="#{cliente}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="data" value="Data:" style="margin-top: 10px;"/>
+                    <p:datePicker id="data"
+                                value="#{cadastroServicoPrestadoBean.servicoPrestado.data}"
+                                showIcon="true"
+                                pattern="dd/MM/yyyy"
+                                timeZone="America/Sao_Paulo"
+                                style="margin-top: 10px;"/>
+
+                    <p:outputLabel for="horario" value="Horário:" style="margin-top: 10px;"/>
+                    <p:datePicker id="horario"
+                                  value="#{cadastroServicoPrestadoBean.servicoPrestado.horasTrabalhadas}"
+                                  timeOnly="true"
+                                  pattern="HH:mm"
+                                  style="margin-top: 10px;"/>
+
+                    <p:commandButton value="#{m.salvar}"
+                                     actionListener="#{cadastroServicoPrestadoBean.salvar()}"
+                                     process="@form"
+                                     update="@form messages"
+                                     style="margin-top: 20px;"/>
+
+                </h:panelGrid>
+
+            </p:fieldset>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

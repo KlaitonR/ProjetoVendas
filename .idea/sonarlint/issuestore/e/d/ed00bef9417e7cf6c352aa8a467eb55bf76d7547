@@ -1,0 +1,9 @@
+
+R
+java:S1854'"<Remove this useless assignment to local variable "clientes".(Ó‘éÍ
+Q	java:S125("<This block of commented-out lines of code should be removed.(Ù‡Ôÿ
+\
+java:S18545"ARemove this useless assignment to local variable "clientesNovos".(ª£±ıÿÿÿÿ
+S	java:S1067"9Replace this use of System.out or System.err by a logger.(¡³¨Œøÿÿÿÿ
+M
+java:S14815"2Remove this unused "clientesNovos" local variable.(ª£±ıÿÿÿÿ

@@ -1,0 +1,33 @@
+<ui:composition template="templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="login">
+            <p:messages globalOnly="true"/>
+            <p:fieldset>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Usuário: " for="usuario"/>
+                    <p:inputText id="usuario" value="#{LoginBean.usuario.usuario}" required="true"/>
+                    <h:outputText  value="Senha: " for="senha"/>
+                    <p:password id="senha" value="#{LoginBean.usuario.senha}" required="true" feedback="true"
+                                promptLabel="#{m.feedbackPassword}" weakLabel="#{m.feddbackPasswordWeak}"
+                                goodLabel="#{m.feedbackPasswordGood}" strongLabel="#{m.feedbackPasswordStrong}"/>
+
+                    <p:commandButton value="Login"
+                                     action="#{LoginBean.login()}"
+                                     update="@form"
+                                     process="@form"/>
+
+                </h:panelGrid>
+            </p:fieldset>
+
+            <p:commandLink value="Criar usuário" immediate="true"/>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

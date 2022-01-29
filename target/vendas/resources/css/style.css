@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+:root {
+    --cor-primaria-menu : #ee4d2d;
+    --cor-primaria-salvar : #ee4d2d;
+    --cor-primaria-hover-salvar : #cd3011;
+    --cor-secundaria-salvar : #ee8d09;
+    --cor-texto-botoes : #fff;
+}

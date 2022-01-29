@@ -1,0 +1,158 @@
+<ui:composition template="templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+        <ui:define name="content">
+
+            <f:metadata>
+                <f:viewAction action="#{homePageBean.init}"/>
+            </f:metadata>
+
+            <p:growl id="messages" life="3000"/>
+
+                <p:accordionPanel id="accordion"
+                                  multiple="true"
+                                  style="margin: 50px 50px 50px 50px">
+                    <p:tab id="tabProduto" title="#{m.produtos}">
+
+                        <h:form id="formDtProdutos" style="margin-top: 20px">
+                            <p:dataTable id="dtProdutos"
+                                         value="#{homePageBean.produtos}"
+                                         var="produto"
+                                         rows="5"
+                                         paginator="true"
+                                         emptyMessage="Não há registros"
+                                         style="margin: 10px 10px 10px 10px;">
+
+                                <p:column headerText="#{m.produto}"
+                                          sortBy="#{produto.nome}"
+                                          style="width: 100px">
+                                    <h:outputText value="#{produto.nome}" rendered="#{not produto.editando}"/>
+                                    <p:inputText value="#{produto.nome}" rendered="#{produto.editando}"/>
+                                </p:column>
+
+                                <p:column headerText="#{m.valor}"
+                                          style="width: 100px">
+                                    <h:outputText value="#{produto.valor}" rendered="#{not produto.editando}"/>
+                                    <p:inputText value="#{produto.valor}" rendered="#{produto.editando}"/>
+                                </p:column>
+
+                                <p:column headerText="#{m.estoque}"
+                                          style="width: 100px">
+                                    <h:outputText value="#{produto.estoque}" rendered="#{not produto.editando}"/>
+                                    <p:inputText value="#{produto.estoque}" rendered="#{produto.editando}"/>
+                                </p:column>
+
+                                <p:column headerText="#{m.acoes}"
+                                          style="width: 10px">
+                                    <p:commandButton id="btnEditar"
+                                                     icon="pi pi-pencil"
+                                                     actionListener="#{homePageBean.habilitarEdicacao(produto)}"
+                                                     process="@this dtProdutos"
+                                                     update="messages dtProdutos"
+                                                     rendered="#{not produto.editando}"/>
+                                    <p:tooltip id="toolEditar" for="btnEditar" value="#{m.editar}" position="top"/>
+
+                                    <p:commandButton id="btnSalvarEdicao"
+                                                     icon="pi pi-save"
+                                                     actionListener="#{homePageBean.editarProduto(produto)}"
+                                                     process="@this dtProdutos"
+                                                     update="messages dtProdutos"
+                                                     rendered="#{produto.editando}">
+                                        <p:confirm header="#{m.confirmacao}" message="#{m.confirmarEdicao}" icon="pi pi-exclamation-triangle"/>
+                                    </p:commandButton>
+                                    <p:tooltip id="toolSalvarEdicao" for="btnSalvarEdicao" value="#{m.salvarEdicao}" position="top"/>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                    </p:confirmDialog>
+
+                                    <p:commandButton id="btnExcluir"
+                                                     icon="pi pi-times"
+                                                     actionListener="#{homePageBean.excluirProduto(produto)}"
+                                                     process="@this dtProdutos"
+                                                     update="messages dtProdutos"
+                                                     disabled="#{produto.editando}">
+                                    </p:commandButton>
+                                    <p:tooltip id="toolExcluir" for="btnExcluir" value="#{m.excluir}" position="top"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </h:form>
+
+                    </p:tab>
+                    <p:tab id="tabServico" title="#{m.servicos}">
+
+                        <h:form id="formDtServicos" style="margin-top: 20px">
+                            <p:dataTable id="dtServicos"
+                                         value="#{homePageBean.servicos}"
+                                         var="servico"
+                                         rows="5"
+                                         paginator="true"
+                                         emptyMessage="Não há registros"
+                                         style="margin: 10px 10px 10px 10px;">
+
+                                <p:column headerText="#{m.servico}"
+                                          sortBy="#{servico.servico.descricao}"
+                                          style="width: 100px">
+                                    <h:outputText value="#{servico.servico.descricao}"/>
+                                </p:column>
+
+                                <p:column headerText="#{m.valor}"
+                                          style="width: 100px">
+                                    <h:outputText value="#{servico.valor}" rendered="#{not servico.editando}"/>
+                                    <p:inputText value="#{servico.valor}" rendered="#{servico.editando}"/>
+                                </p:column>
+
+                                <p:column headerText="#{m.acoes}"
+                                          style="width: 10px">
+                                    <p:commandButton id="btnEditarServico"
+                                                     icon="pi pi-pencil"
+                                                     actionListener="#{homePageBean.habilitarEdicacaoServico(servico)}"
+                                                     process="@this dtServicos"
+                                                     update="messages dtServicos"
+                                                     rendered="#{not servico.editando}"/>
+                                    <p:tooltip id="toolEditarServico" for="btnEditarServico" value="#{m.editar}" position="top"/>
+
+                                    <p:commandButton id="btnSalvarEdicaoServico"
+                                                     icon="pi pi-save"
+                                                     actionListener="#{homePageBean.editarServico(servico)}"
+                                                     process="@this dtServicos"
+                                                     update="messages dtServicos"
+                                                     rendered="#{servico.editando}">
+                                        <p:confirm header="#{m.confirmacao}" message="#{m.confirmarEdicao}" icon="pi pi-exclamation-triangle"/>
+                                    </p:commandButton>
+                                    <p:tooltip id="toolSalvarEdicaoServico" for="btnSalvarEdicaoServico" value="#{m.salvarEdicao}" position="top"/>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                    </p:confirmDialog>
+
+                                    <p:commandButton id="btnExcluirServico"
+                                                     icon="pi pi-times"
+                                                     actionListener="#{homePageBean.excluirServico(servico)}"
+                                                     process="@this dtServicos"
+                                                     update="messages dtServicos"
+                                                     disabled="#{servico.editando}">
+                                    </p:commandButton>
+                                    <p:tooltip id="toolExcluirServicos" for="btnExcluirServico" value="#{m.excluir}" position="top"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </h:form>
+
+                    </p:tab>
+                    <p:tab id="tabServicoPrestado" title="#{m.servicosPrestados}">
+
+                    </p:tab>
+                </p:accordionPanel>
+
+
+        </ui:define>
+
+</ui:composition>

@@ -1,0 +1,15 @@
+
+[	java:S112;"FDefine and throw a dedicated exception instead of using a generic one.(‚û•Š
+[	java:S112G"FDefine and throw a dedicated exception instead of using a generic one.(úûÍ¯
+[	java:S112k"FDefine and throw a dedicated exception instead of using a generic one.(ÕŸ¿ã
+t
+java:S2293 "YReplace the type specification in this constructor call with the diamond operator ("<>").(ÿê¶üÿÿÿÿ
+t
+java:S2293!"YReplace the type specification in this constructor call with the diamond operator ("<>").(ûŞÙŞÿÿÿÿÿ
+o
+java:S2293""YReplace the type specification in this constructor call with the diamond operator ("<>").(ß·ö‹
+‚
+java:S1130;"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(‚û•Š
+‚
+java:S1130G"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(úûÍ¯
+Q	java:S125w"<This block of commented-out lines of code should be removed.(é¯ÅŸ

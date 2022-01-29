@@ -1,0 +1,52 @@
+<ui:composition template="templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <p:outputLabel value="Cliente"/>
+
+        <h:form id="formBuscaCliente">
+            <h:panelGrid columns="3">
+                <p:outputLabel value="Nome" for="acNome"/>
+                <p:autoComplete id="acNome"
+                                value="#{clientePageBean.cliente}"
+                                completeMethod="#{clientePageBean.buscaClientePorNome()}"
+                                var="cliente"
+                                itemLabel="#{cliente.nome}"
+                                itemValue="#{cliente}"
+                                converter="entityConverter"
+                                forceSelection="true">
+                </p:autoComplete>
+
+                <p:commandButton id="btnBuscar"
+                                 value="#{m.buscar}"
+                                 actionListener="#{clientePageBean.carregaView()}"
+                                 process="@this"
+                                 update="@form formDadosCliente"
+                                 style="margin-left: 10px;"/>
+
+                <p:outputLabel value="#{m.cpf}" for="inpCPF" />
+                <p:inputText id="inpCPF"
+                                value="#{clientePageBean.cpf}"/>
+            </h:panelGrid>
+        </h:form>
+
+        <h:form id="formDadosCliente"
+                style="margin-top: 20px;">
+            <p:tabView>
+                <p:tab title="#{m.endereco}">
+                    <h:panelGrid columns="2" cellpadding="10">
+                               <p:outputLabel value="#{clientePageBean.cliente.nome}"/>
+                               <p:outputLabel value="#{clientePageBean.cliente.cpf}"/>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
